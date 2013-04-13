@@ -1,7 +1,7 @@
 /*
  * Spriter Extension for AndEngine
  *
- * Copyright (c) 2012 Arturo Gutiérrez
+ * Copyright (c) 2012 Arturo Guti√©rrez
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -226,11 +226,12 @@ public class SpriterEntity extends Entity {
             sprite.setScale(scaleX, scaleY);
 
             // Calculate Anchor point
-            float anchorPointX = sprite.getWidth() * interpolate(object.getPivotX(), nextObject.getPivotX(), interpolationFactor);
-            float anchorPointY = sprite.getHeight() * (1 - interpolate(object.getPivotY(), nextObject.getPivotY(), interpolationFactor));
+            float anchorPointX = interpolate(object.getPivotX(), nextObject.getPivotX(), interpolationFactor);
+            float anchorPointY = interpolate(object.getPivotY(), nextObject.getPivotY(), interpolationFactor);
+            sprite.setAnchorCenter(anchorPointX, anchorPointY);
             // Set new position
-            sprite.setPosition(interpolate(object.getX(), nextObject.getX(), interpolationFactor) - anchorPointX,
-                    -interpolate(object.getY(), nextObject.getY(), interpolationFactor) - anchorPointY);
+            sprite.setPosition(interpolate(object.getX(), nextObject.getX(), interpolationFactor),
+                    interpolate(object.getY(), nextObject.getY(), interpolationFactor));
 
             // Convert rotation to AndEngine rotation coord
             float nextRotation = 360 - nextObject.getAngle();
@@ -246,7 +247,6 @@ public class SpriterEntity extends Entity {
             // Interpolate rotation
             float rotation = interpolate(curRotation, nextRotation, interpolationFactor);
             // Set new rotation
-            sprite.setRotationCenter(anchorPointX, anchorPointY);
             sprite.setRotation(rotation);
             
             // Calculate alpha
